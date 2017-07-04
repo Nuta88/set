@@ -1,49 +1,45 @@
-function Set() {
-	var arr = [ "ah", "3" ];
+var Set = (function() {
+	var arr = Symbol("");
 
-	this.getArr = arr;
+	function Set() {
+		this[arr] = [];
+	}
 
-	this.add = function(element) {
-		if (this.find(element)) {
+	Set.prototype.add = function(object) {
+		if (this.find(object)) {
 			return -1;
 		}
-
-		arr.push(element);
+		this[arr].push(object);
 	};
 
-	this.find = function(element) {
-		if (typeof element !== "string") {
+	Set.prototype.find = function(object) {
+		if (typeof object !== "string") {
 			return -1;
 		}
-
-		if (arr.indexOf(element) === -1) {
+		if (this[arr].indexOf(object) === -1) {
 			return false;
 		}
-
 		return true;
 	};
 
-	this.getElemByIndex = function(index) {
-		if (arr.length < index) {
+	Set.prototype.getElemByIndex = function(index) {
+		if (this[arr].length < index) {
 			return -1;
 		}
-
-		return arr[index];
+		return this[arr][index];
 	};
 
-	this.delElemFromAArr = function(startIndex, deleteCountElem) {
-		arr.splice(startIndex, deleteCountElem);
+	Set.prototype.delElemFromAArr = function(startIndex, deleteCountElem) {
+		this[arr].splice(startIndex, deleteCountElem);
 	};
-	
-	this.sortArr = function() {
-		function compareNumeric(a, b) {
-			  if (a > b) return 1;
-			  if (a < b) return -1;
-			}
 
-			arr.sort(compareNumeric);
-	}
-};
+	Set.prototype.sortArr = function() {
+		this[arr].sort();
+	};
 
-var set = new Set();
+	Set.prototype.getArr = function() {
+		return this[arr].slice(0);
+	};
 
+	return Set;
+}());
