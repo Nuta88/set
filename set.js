@@ -10,7 +10,7 @@ var Set = (function() {
 			return -1;
 		}
 		this[arr].push(object);
-	};
+	}; 
 
 	Set.prototype.find = function(object) {
 		if (typeof object !== "string") {

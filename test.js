@@ -5,7 +5,7 @@ QUnit.test("add method", function(assert) {
 	actual.add("cat");
 	assert.deepEqual(actual.getArr(), expected,
 			"Two arrays can be the same in value");
-});
+}); 
 
 QUnit.test("find method", function(assert) {
 	var expected = true;
