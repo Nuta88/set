@@ -7,14 +7,14 @@ var Set = (function() {
 
 	Set.prototype.add = function(object) {
 		if (this.find(object)) {
-			return -1;
+			throw new Error("An existing object mustn't be added to array!");
 		}
 		this[arr].push(object);
-	}; 
+	};
 
 	Set.prototype.find = function(object) {
 		if (typeof object !== "string") {
-			return -1;
+			throw new Error("Object can't be not a string!");
 		}
 		if (this[arr].indexOf(object) === -1) {
 			return false;
@@ -22,22 +22,22 @@ var Set = (function() {
 		return true;
 	};
 
-	Set.prototype.getElemByIndex = function(index) {
-		if (this[arr].length < index) {
-			return -1;
-		}
+	Set.prototype.getElement = function(index) {
 		return this[arr][index];
 	};
 
-	Set.prototype.delElemFromAArr = function(startIndex, deleteCountElem) {
-		this[arr].splice(startIndex, deleteCountElem);
+	Set.prototype.delElement = function(from, to) {
+		if (from < 0 || to <= 0 || from > to) {
+			return [];
+		}
+		return this[arr].splice(from, to - from);
 	};
 
-	Set.prototype.sortArr = function() {
+	Set.prototype.sortSet = function() {
 		this[arr].sort();
 	};
 
-	Set.prototype.getArr = function() {
+	Set.prototype.getSet = function() {
 		return this[arr].slice(0);
 	};
 
