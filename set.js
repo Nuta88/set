@@ -3,7 +3,7 @@ var Set = (function() {
 
 	function Set() {
 		this[arr] = [];
-	}
+	} 
 
 	Set.prototype.add = function(object) {
 		if (this.find(object)) {

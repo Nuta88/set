@@ -5,7 +5,7 @@ QUnit.test("add method test", function(assert) {
 	set.add("cat");
 	assert.deepEqual(set.getSet(), expected,
 			"Two arrays must be the same in value");
-});
+}); 
 
 QUnit.test("find method test",
 		function(assert) {
