@@ -7,14 +7,14 @@ var Set = (function() {
 
 	Set.prototype.add = function(object) {
 		if (this.find(object)) {
-			throw new Error("An existing object mustn't be added to array!");
+			return false;
 		}
 		this[arr].push(object);
 	};
 
 	Set.prototype.find = function(object) {
 		if (typeof object !== "string") {
-			throw new Error("Object can't be not a string!");
+			return false;
 		}
 		if (this[arr].indexOf(object) === -1) {
 			return false;
@@ -26,7 +26,7 @@ var Set = (function() {
 		return this[arr][index];
 	};
 
-	Set.prototype.delElement = function(from, to) {
+	Set.prototype.remove = function(from, to) {
 		if (from < 0 || to <= 0 || from > to) {
 			return [];
 		}
