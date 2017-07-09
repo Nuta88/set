@@ -7,14 +7,14 @@ var Set = (function() {
 
 	Set.prototype.add = function(object) {
 		if (this.find(object)) {
-			throw new RepeatingArgumentError(object);
+			return false;
 		}
 		this[arr].push(object);
 	};
 
 	Set.prototype.find = function(object) {
 		if (typeof object !== "string") {
-			throw new ArgumentNotStringError(object);
+			throw new ArgumentTypeError(object);
 		}
 		if (this[arr].indexOf(object) === -1) {
 			return false;
@@ -60,28 +60,15 @@ function InvalidArgumentError(argument) {
 InvalidArgumentError.prototype = new Error();
 InvalidArgumentError.prototype.constructor = InvalidArgumentError;
 
-function ArgumentNotStringError(argument) {
-	this.name = "ArgumentNotStringError";
+function ArgumentTypeError(argument) {
+	this.name = "ArgumentTypeError";
 	this.massege = "Argument (" + argument + ") isn't a string";
 	this.argument = argument;
 	if (Error.captureStackTrace) {
-		Error.captureStackTrace(this, ArgumentNotStringError);
+		Error.captureStackTrace(this, ArgumentTypeError);
 	} else {
 		this.stack = (new Error()).stack;
 	}
 }
-ArgumentNotStringError.prototype = new Error();
-ArgumentNotStringError.prototype.constructor = ArgumentNotStringError;
-
-function RepeatingArgumentError(argument) {
-	this.name = "RepeatingArgumentError";
-	this.massege = "Argument (" + argument + ") already exists";
-	this.argument = argument;
-	if (Error.captureStackTrace) {
-		Error.captureStackTrace(this, RepeatingArgumentError);
-	} else {
-		this.stack = (new Error()).stack;
-	}
-}
-RepeatingArgumentError.prototype = new Error();
-RepeatingArgumentError.prototype.constructor = RepeatingArgumentError;
+ArgumentTypeError.prototype = new Error();
+ArgumentTypeError.prototype.constructor = ArgumentTypeError;

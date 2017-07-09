@@ -6,15 +6,6 @@ QUnit.test("add method test", function(assert) {
 	assert.deepEqual(set.getSet(), expected, "Two arrays must be the same in value");
 });
 
-QUnit.test("RepeatingArgumentError", function(assert) {
-	set = new Set();
-	function runAdd() {
-		set.add("love");
-		set.add("love");
-	}
-	assert.throws(runAdd, RepeatingArgumentError, "Check RepeatingArgumentError");
-});
-
 QUnit.test("find method test", function(assert) {
 	var expected = true;
 	var set = new Set();
@@ -23,7 +14,7 @@ QUnit.test("find method test", function(assert) {
 	assert.deepEqual(set.find("love"), expected, "Does array contain a value?");
 });
 
-QUnit.test("ArgumentNotStringError", function(assert) {
+QUnit.test("ArgumentTypeError", function(assert) {
 	set = new Set();
 	set.add("love");
 	set.add("silly");
@@ -31,7 +22,7 @@ QUnit.test("ArgumentNotStringError", function(assert) {
 	function runFind() {
 		set.find(4);
 	}
-	assert.throws(runFind, ArgumentNotStringError, "Check ArgumentNotStringError");
+	assert.throws(runFind, ArgumentTypeError, "Check ArgumentTypeError");
 });
 
 QUnit.test("getElement method test", function(assert) {
