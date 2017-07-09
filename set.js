@@ -3,7 +3,7 @@ var Set = (function() {
 
 	function Set() {
 		this[arr] = [];
-	} 
+	}
 
 	Set.prototype.add = function(object) {
 		if (this.find(object)) {
@@ -14,7 +14,7 @@ var Set = (function() {
 
 	Set.prototype.find = function(object) {
 		if (typeof object !== "string") {
-			return false;
+			throw new ArgumentTypeError(object);
 		}
 		if (this[arr].indexOf(object) === -1) {
 			return false;
@@ -27,8 +27,11 @@ var Set = (function() {
 	};
 
 	Set.prototype.remove = function(from, to) {
-		if (from < 0 || to <= 0 || from > to) {
-			return [];
+		if (from < 0 || from > to) {
+			throw new InvalidArgumentError("from = " + from);
+		}
+		if (to <= 0 || to >= this[arr].length) {
+			throw new InvalidArgumentError("to = " + to);
 		}
 		return this[arr].splice(from, to - from);
 	};
@@ -43,3 +46,29 @@ var Set = (function() {
 
 	return Set;
 }());
+
+function InvalidArgumentError(argument) {
+	this.name = "InvalidArgumentError";
+	this.massege = "invalid argument " + argument;
+	this.argument = argument;
+	if (Error.captureStackTrace) {
+		Error.captureStackTrace(this, InvalidArgumentError);
+	} else {
+		this.stack = (new Error()).stack;
+	}
+}
+InvalidArgumentError.prototype = new Error();
+InvalidArgumentError.prototype.constructor = InvalidArgumentError;
+
+function ArgumentTypeError(argument) {
+	this.name = "ArgumentTypeError";
+	this.massege = "Argument (" + argument + ") isn't a string";
+	this.argument = argument;
+	if (Error.captureStackTrace) {
+		Error.captureStackTrace(this, ArgumentTypeError);
+	} else {
+		this.stack = (new Error()).stack;
+	}
+}
+ArgumentTypeError.prototype = new Error();
+ArgumentTypeError.prototype.constructor = ArgumentTypeError;

@@ -1,21 +1,29 @@
 QUnit.test("add method test", function(assert) {
-	var expected = ["love", "cat"];
+	var expected = [ "love", "cat" ];
 	var set = new Set();
 	set.add("love");
 	set.add("cat");
-	assert.deepEqual(set.getSet(), expected,
-			"Two arrays must be the same in value");
-}); 
+	assert.deepEqual(set.getSet(), expected, "Two arrays must be the same in value");
+});
 
-QUnit.test("find method test",
-		function(assert) {
-			var expected = true;
-			var set = new Set();
-			set.add("love");
-			set.add("cat");
-			assert.deepEqual(set.find("love"), expected,
-					"Does array contain a value?");
-		});
+QUnit.test("find method test", function(assert) {
+	var expected = true;
+	var set = new Set();
+	set.add("love");
+	set.add("cat");
+	assert.deepEqual(set.find("love"), expected, "Does array contain a value?");
+});
+
+QUnit.test("ArgumentTypeError", function(assert) {
+	set = new Set();
+	set.add("love");
+	set.add("silly");
+	set.add("cat");
+	function runFind() {
+		set.find(4);
+	}
+	assert.throws(runFind, ArgumentTypeError, "Check ArgumentTypeError");
+});
 
 QUnit.test("getElement method test", function(assert) {
 	var expected = "silly";
@@ -32,12 +40,11 @@ QUnit.test("getElement method return an 'undefined' test", function(assert) {
 	set.add("love");
 	set.add("silly");
 	set.add("cat");
-	assert.deepEqual(set.getElement(6), expected,
-			"Does the method return an 'undefined'?");
+	assert.deepEqual(set.getElement(6), expected, "Does the method return an 'undefined'?");
 });
 
 QUnit.test("return remove method test", function(assert) {
-	var expected = ["love"];
+	var expected = [ "love" ];
 	set = new Set();
 	set.add("love");
 	set.add("silly");
@@ -46,8 +53,20 @@ QUnit.test("return remove method test", function(assert) {
 	assert.deepEqual(actual, expected, "Method must return deleted element");
 });
 
+QUnit.test("InvalidArgumentError", function(assert) {
+	set = new Set();
+	set.add("love");
+	set.add("silly");
+	set.add("cat");
+
+	function runRemove() {
+		set.remove(1, 10);
+	}
+	assert.throws(runRemove, InvalidArgumentError, "Check InvalidArgumentError");
+});
+
 QUnit.test("remove method test", function(assert) {
-	var expected = ["silly", "cat"];
+	var expected = [ "silly", "cat" ];
 	set = new Set();
 	set.add("love");
 	set.add("silly");
@@ -58,24 +77,22 @@ QUnit.test("remove method test", function(assert) {
 });
 
 QUnit.test("sort method test", function(assert) {
-	var expected = ["amazing", "cat", "love", "silly"];
+	var expected = [ "amazing", "cat", "love", "silly" ];
 	var set = new Set();
 	set.add("love");
 	set.add("silly");
 	set.add("cat");
 	set.add("amazing");
 	set.sortSet();
-	assert.deepEqual(set.getSet(), expected,
-			"Two arrays can be the same in value");
+	assert.deepEqual(set.getSet(), expected, "Two arrays can be the same in value");
 });
 
 QUnit.test("getSet method test", function(assert) {
-	var expected = ["love", "silly", "cat", "amazing"];
+	var expected = [ "love", "silly", "cat", "amazing" ];
 	var set = new Set();
 	set.add("love");
 	set.add("silly");
 	set.add("cat");
 	set.add("amazing");
-	assert.deepEqual(set.getSet(), expected,
-			"Two arrays can be the same in value");
+	assert.deepEqual(set.getSet(), expected, "Two arrays can be the same in value");
 });
